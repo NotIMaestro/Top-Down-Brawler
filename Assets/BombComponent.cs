@@ -5,15 +5,27 @@ using UnityEngine;
 
 public class BombComponent : MonoBehaviour
 {
+    [SerializeField]
+    private bool activated = false;
 
     public float t = 3f;
-
     public float radius = 5f;
 
+    public void Activate()
+    {
+        activated = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (activated == false)
+        {
+            return;
+        }
+
+
         t -= Time.deltaTime;
 
         if (t <= 0)

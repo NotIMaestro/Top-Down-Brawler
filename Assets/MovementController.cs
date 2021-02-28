@@ -11,7 +11,7 @@ public class MovementController : MonoBehaviour
     public float speed = 6f;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         controls = new PlayerMovement();
 

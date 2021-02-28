@@ -33,6 +33,14 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dropitem"",
+                    ""type"": ""Button"",
+                    ""id"": ""c149530a-1429-476a-8cef-074e580a8d9d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad6258d1-21ec-41a2-ba25-10c9afabd987"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dropitem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
         m_Control = asset.FindActionMap("Control", throwIfNotFound: true);
         m_Control_ControlStick = m_Control.FindAction("Control Stick", throwIfNotFound: true);
         m_Control_Jump = m_Control.FindAction("Jump", throwIfNotFound: true);
+        m_Control_Dropitem = m_Control.FindAction("Dropitem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
     private IControlActions m_ControlActionsCallbackInterface;
     private readonly InputAction m_Control_ControlStick;
     private readonly InputAction m_Control_Jump;
+    private readonly InputAction m_Control_Dropitem;
     public struct ControlActions
     {
         private @PlayerMovement m_Wrapper;
         public ControlActions(@PlayerMovement wrapper) { m_Wrapper = wrapper; }
         public InputAction @ControlStick => m_Wrapper.m_Control_ControlStick;
         public InputAction @Jump => m_Wrapper.m_Control_Jump;
+        public InputAction @Dropitem => m_Wrapper.m_Control_Dropitem;
         public InputActionMap Get() { return m_Wrapper.m_Control; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_ControlActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_ControlActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_ControlActionsCallbackInterface.OnJump;
+                @Dropitem.started -= m_Wrapper.m_ControlActionsCallbackInterface.OnDropitem;
+                @Dropitem.performed -= m_Wrapper.m_ControlActionsCallbackInterface.OnDropitem;
+                @Dropitem.canceled -= m_Wrapper.m_ControlActionsCallbackInterface.OnDropitem;
             }
             m_Wrapper.m_ControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Dropitem.started += instance.OnDropitem;
+                @Dropitem.performed += instance.OnDropitem;
+                @Dropitem.canceled += instance.OnDropitem;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
     {
         void OnControlStick(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnDropitem(InputAction.CallbackContext context);
     }
 }
