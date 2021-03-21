@@ -8,7 +8,7 @@ public class BombComponent : MonoBehaviour
     [SerializeField]
     private bool activated = false;
 
-    public float t = 3f;
+    public float timer = 3f;
     public float radius = 5f;
 
     public void Activate()
@@ -26,11 +26,11 @@ public class BombComponent : MonoBehaviour
         }
 
 
-        t -= Time.deltaTime;
+        timer -= Time.deltaTime;
 
-        if (t <= 0)
+        if (timer <= 0)
         {
-            t = 0;
+            timer = 0;
 
 
             Explode();

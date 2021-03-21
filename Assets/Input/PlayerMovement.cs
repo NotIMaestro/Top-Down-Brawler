@@ -41,6 +41,14 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""UsePickup"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5047fd8-7f84-40be-a626-b095cdb9227c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -76,6 +84,17 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                     ""action"": ""Dropitem"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0394845-bab1-4857-ab7b-a4edbfd96acb"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UsePickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -87,6 +106,7 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
         m_Control_ControlStick = m_Control.FindAction("Control Stick", throwIfNotFound: true);
         m_Control_Jump = m_Control.FindAction("Jump", throwIfNotFound: true);
         m_Control_Dropitem = m_Control.FindAction("Dropitem", throwIfNotFound: true);
+        m_Control_UsePickup = m_Control.FindAction("UsePickup", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,6 +159,7 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
     private readonly InputAction m_Control_ControlStick;
     private readonly InputAction m_Control_Jump;
     private readonly InputAction m_Control_Dropitem;
+    private readonly InputAction m_Control_UsePickup;
     public struct ControlActions
     {
         private @PlayerMovement m_Wrapper;
@@ -146,6 +167,7 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
         public InputAction @ControlStick => m_Wrapper.m_Control_ControlStick;
         public InputAction @Jump => m_Wrapper.m_Control_Jump;
         public InputAction @Dropitem => m_Wrapper.m_Control_Dropitem;
+        public InputAction @UsePickup => m_Wrapper.m_Control_UsePickup;
         public InputActionMap Get() { return m_Wrapper.m_Control; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -164,6 +186,9 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                 @Dropitem.started -= m_Wrapper.m_ControlActionsCallbackInterface.OnDropitem;
                 @Dropitem.performed -= m_Wrapper.m_ControlActionsCallbackInterface.OnDropitem;
                 @Dropitem.canceled -= m_Wrapper.m_ControlActionsCallbackInterface.OnDropitem;
+                @UsePickup.started -= m_Wrapper.m_ControlActionsCallbackInterface.OnUsePickup;
+                @UsePickup.performed -= m_Wrapper.m_ControlActionsCallbackInterface.OnUsePickup;
+                @UsePickup.canceled -= m_Wrapper.m_ControlActionsCallbackInterface.OnUsePickup;
             }
             m_Wrapper.m_ControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -177,6 +202,9 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
                 @Dropitem.started += instance.OnDropitem;
                 @Dropitem.performed += instance.OnDropitem;
                 @Dropitem.canceled += instance.OnDropitem;
+                @UsePickup.started += instance.OnUsePickup;
+                @UsePickup.performed += instance.OnUsePickup;
+                @UsePickup.canceled += instance.OnUsePickup;
             }
         }
     }
@@ -186,5 +214,6 @@ public class @PlayerMovement : IInputActionCollection, IDisposable
         void OnControlStick(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnDropitem(InputAction.CallbackContext context);
+        void OnUsePickup(InputAction.CallbackContext context);
     }
 }

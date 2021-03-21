@@ -20,7 +20,7 @@ public class ResourceComponent : MonoBehaviour
         if (other.CompareTag("Player"))
         {
 
-            ResourceInventory inventoryComponent = other.GetComponent<ResourceInventory>();
+            var inventoryComponent = other.GetComponent<ResourceInventory>();
 
             if (inventoryComponent != null)
             {
