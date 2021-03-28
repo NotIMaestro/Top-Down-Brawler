@@ -29,6 +29,8 @@ public class ItemComponent : MonoBehaviour
         rb.velocity = throwDirection * 10;
 
         OnThrownEvent?.Invoke();
+
+
     }
 
 }

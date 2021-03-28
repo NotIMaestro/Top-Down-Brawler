@@ -5,6 +5,7 @@ using UnityEngine;
 public class UseItemComponent : MonoBehaviour
 {
     public Transform playerHand;
+    public Transform mesh;
 
     public MovementController controlReference;
     private PlayerMovement controls;
@@ -27,17 +28,27 @@ public class UseItemComponent : MonoBehaviour
         if (itemInput.triggered && currentItem == null)
         {
             TryToPickUpItems();
-            
-
         }
-        else if (itemInput.triggered && currentItem != null)
+        else if (itemInput.triggered)
         {
-            currentItem.ThrowItem(Vector3.forward);
-            currentItem = null;
+            TryThrowItem();
 
         }
 
   
+        
+    }
+
+    public void TryThrowItem()
+    {
+        
+        if (currentItem != null)
+        {
+            currentItem.ThrowItem(mesh.transform.forward);
+            currentItem = null;
+
+        }
+
         
     }
 
@@ -49,7 +60,7 @@ public class UseItemComponent : MonoBehaviour
 
         for (int i = 0; i < HitColliders.Length; i++)
         {
-            var itemComponent = HitColliders[i].transform.GetComponent<ItemComponent>();
+            ItemComponent itemComponent = HitColliders[i].transform.GetComponent<ItemComponent>();
 
             if (itemComponent != null)
             {

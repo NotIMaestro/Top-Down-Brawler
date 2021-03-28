@@ -11,6 +11,23 @@ public class BombComponent : MonoBehaviour
     public float timer = 3f;
     public float radius = 5f;
 
+    public void Start()
+    {
+        ItemComponent itemComponent = transform.GetComponent<ItemComponent>();
+
+        itemComponent.OnThrownEvent += Activate;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player") && activated)
+        {
+            Explode();
+        }
+        
+    }
+
+
     public void Activate()
     {
         activated = true;
