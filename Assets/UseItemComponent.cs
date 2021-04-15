@@ -7,29 +7,26 @@ public class UseItemComponent : MonoBehaviour
     public Transform playerHand;
     public Transform mesh;
 
-    public MovementController controlReference;
-    private PlayerMovement controls;
+    public IGetInput anyInputComponent;
 
     private ItemComponent currentItem = null;
 
-
-    void Start()
+    private void Start()
     {
-
-        controls = controlReference.controls;
-        
+        anyInputComponent = gameObject.GetComponent<IGetInput>();
     }
+
 
     void Update()
     {
 
-        var itemInput = controls.Control.UsePickup;
+        bool shouldWeUseItem = anyInputComponent.ItemInput();
 
-        if (itemInput.triggered && currentItem == null)
+        if (shouldWeUseItem && currentItem == null)
         {
             TryToPickUpItems();
         }
-        else if (itemInput.triggered)
+        else if (shouldWeUseItem)
         {
             TryThrowItem();
 

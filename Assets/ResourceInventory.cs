@@ -10,7 +10,7 @@ public class ResourceInventory : MonoBehaviour
     public GameObject coalObject;
 
 
-    public MovementController controller;
+    public PlayerInputComponent controller;
 
     private InputAction dropItemInput;
 

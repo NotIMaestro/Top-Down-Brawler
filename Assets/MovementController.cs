@@ -6,7 +6,7 @@ public class MovementController : MonoBehaviour
 {
     public Rigidbody rb;
 
-    public PlayerMovement controls;
+    IGetInput anyInputComponent;
 
     public float speed = 6f;
     public GameObject capsuleMesh;
@@ -25,10 +25,7 @@ public class MovementController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        controls = new PlayerMovement();
-
-        controls.Enable();
-
+        anyInputComponent = GetComponent<IGetInput>();
         rb = transform.GetComponent<Rigidbody>();
     }
 
@@ -45,18 +42,12 @@ public class MovementController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
 
-        SetInputs(controls.Control.Jump.triggered, controls.Control.ControlStick.ReadValue<Vector2>());
-
-
+        SetInputs(anyInputComponent.JumpInput(), anyInputComponent.MovementVector());
         // float xDirection = Input.GetAxisRaw("Horizontal");
-        // float zDirection = Input.GetAxisRaw("Vertical");
-
-        
-
+        // float zDirection = Input.GetAxisRaw("Vertical
         RotatePlayer(movementVector);
-
      
 
         rb.velocity = new Vector3(movementVector.x * speed, rb.velocity.y, movementVector.y * speed);
