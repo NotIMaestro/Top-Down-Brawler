@@ -11,6 +11,14 @@ public class UseItemComponent : MonoBehaviour
 
     private ItemComponent currentItem = null;
 
+    public float pickUpRadius = 3f;
+
+    public bool HasItem()
+    {
+        // if we have an item then return true
+        return (currentItem != null);
+    }
+
     private void Start()
     {
         anyInputComponent = gameObject.GetComponent<IGetInput>();
@@ -53,7 +61,7 @@ public class UseItemComponent : MonoBehaviour
     {
         RaycastHit[] HitColliders;
 
-        HitColliders = Physics.SphereCastAll(transform.position, 3f, Vector3.down, 1f);
+        HitColliders = Physics.SphereCastAll(transform.position, pickUpRadius, Vector3.down, 1f);
 
         for (int i = 0; i < HitColliders.Length; i++)
         {

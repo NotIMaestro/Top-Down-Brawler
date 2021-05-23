@@ -11,12 +11,12 @@ public class TooManyJumpsInput : MonoBehaviour, IGetInput
 
     public bool JumpInput()
     {
-        return false;
+        return true;
     }
 
     public Vector2 MovementVector()
     {
-        return new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        return new Vector2(0, 0);
     }
 
 }

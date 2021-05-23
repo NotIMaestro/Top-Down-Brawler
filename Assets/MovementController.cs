@@ -14,6 +14,8 @@ public class MovementController : MonoBehaviour
     private bool jumpTriggered;
     private Vector2 movementVector;
 
+    public LayerMask groundMask;
+
 
     public void SetInputs(bool _jumpTriggered, Vector2 _movementVector)
     {
@@ -52,7 +54,9 @@ public class MovementController : MonoBehaviour
 
         rb.velocity = new Vector3(movementVector.x * speed, rb.velocity.y, movementVector.y * speed);
 
-        if (jumpTriggered)
+        
+
+        if (jumpTriggered && Physics.Raycast(transform.position, Vector3.down, 1f, groundMask.value))
         {
             rb.velocity = new Vector3(rb.velocity.x, 10, rb.velocity.z);
         }
