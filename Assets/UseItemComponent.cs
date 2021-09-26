@@ -28,20 +28,33 @@ public class UseItemComponent : MonoBehaviour
     void Update()
     {
 
-        bool shouldWeUseItem = anyInputComponent.ItemInput();
+        bool useItemInput = anyInputComponent.UseItemInput();
 
-        if (shouldWeUseItem && currentItem == null)
+        if (useItemInput && currentItem == null)
         {
             TryToPickUpItems();
         }
-        else if (shouldWeUseItem)
+
+        bool dropItemInput = anyInputComponent.DropItemInput();
+
+        if (dropItemInput && currentItem != null)
         {
             TryThrowItem();
 
         }
 
-  
-        
+        if (useItemInput && currentItem != null)
+        {
+            TryUseItem();
+        }
+    }
+
+    public void TryUseItem()
+    {
+        if (currentItem != null)
+        {
+            currentItem.UseItem();
+        }
     }
 
     public void TryThrowItem()

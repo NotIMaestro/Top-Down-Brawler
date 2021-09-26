@@ -6,7 +6,7 @@ public class PlayerInputComponent : MonoBehaviour, IGetInput
 {
     public PlayerMovement controls;
 
-    public bool ItemInput()
+    public bool UseItemInput()
     {
         return controls.Control.UsePickup.triggered;
     }
@@ -26,5 +26,14 @@ public class PlayerInputComponent : MonoBehaviour, IGetInput
         controls = new PlayerMovement();
 
         controls.Enable();
+    }
+
+    public bool DropItemInput()
+    {
+        bool shouldIDropItem;
+
+        shouldIDropItem = controls.Control.Dropitem.triggered;
+
+        return shouldIDropItem;
     }
 }

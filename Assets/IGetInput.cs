@@ -7,7 +7,8 @@ public interface IGetInput
     Vector2 MovementVector();
     bool JumpInput();
 
-    bool ItemInput();
+    bool UseItemInput();
+    bool DropItemInput();
 
 
 }

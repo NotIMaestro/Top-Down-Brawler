@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TooManyJumpsInput : MonoBehaviour, IGetInput
 {
-    public bool ItemInput()
+    public bool UseItemInput()
     {
         return false;
     }
@@ -19,4 +19,8 @@ public class TooManyJumpsInput : MonoBehaviour, IGetInput
         return new Vector2(0, 0);
     }
 
+    public bool DropItemInput()
+    {
+        return false;
+    }
 }

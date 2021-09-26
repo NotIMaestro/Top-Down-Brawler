@@ -32,7 +32,7 @@ public class AIInputComponent : MonoBehaviour, IGetInput
 
     }
 
-    public bool ItemInput()
+    public bool UseItemInput()
     {
 
         if (done)
@@ -108,4 +108,8 @@ public class AIInputComponent : MonoBehaviour, IGetInput
 
     }
 
+    public bool DropItemInput()
+    {
+        return false;
+    }
 }

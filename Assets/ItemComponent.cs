@@ -6,11 +6,20 @@ using UnityEngine;
 public class ItemComponent : MonoBehaviour
 {
     public Rigidbody rb;
-
     public event Action OnThrownEvent;
+    public Collider col;
+    public event Action OnItemUsed;
+
+
+    public void UseItem()
+    {
+        OnItemUsed?.Invoke();
+    }
 
     public void PickUp(Transform handToAttachTo)
     {
+        col.enabled = false;
+
         rb.isKinematic = true;
         this.transform.SetParent(handToAttachTo);
 
@@ -24,6 +33,7 @@ public class ItemComponent : MonoBehaviour
 
     public void ThrowItem(Vector3 throwDirection)
     {
+        col.enabled = true;
         rb.isKinematic = false;
         this.transform.SetParent(null);
         rb.velocity = throwDirection * 10;
